@@ -17,17 +17,9 @@ s3_client = boto3.client('s3')
 def upload_file():
     file = request.files.get("file")
 if file:
-        try:
-            s3_client.upload_fileobj(
-                file, S3_BUCKET, file.filename,
-                ExtraArgs={"ServerSideEncryption": "AES256"}
-            )
+    s3_client.upload_fileobj(file, S3_BUCKET, file.filename,ExtraArgs={"ServerSideEncryption": "AES256"})
             return {"message": "File uploaded securely."}, 200
-        except Exception as e:
-            logger.error(f"Error uploading file: {e}")
-            return {"error": "File upload failed."}, 500
-    
     return {"error": "No file provided."}, 400
 
 if _name_ == "_main_":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0",Â port=5000)
